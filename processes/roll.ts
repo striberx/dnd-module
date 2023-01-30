@@ -1,6 +1,5 @@
 import { DiceRoller, NumberGenerator, DiceRoll } from '@dice-roller/rpg-dice-roller';
 import { NotationError } from '@dice-roller/rpg-dice-roller/types/exceptions';
-import { APIMessage, ChannelType } from 'discord-api-types/v10';
 import { escapeMarkdown } from '../helpers/escapers';
 import DnDHelper from '../helpers/dndHelper';
 
@@ -45,9 +44,8 @@ function styleRoll(unstyledRoll: string, max: string, hasSpace: boolean, compari
  *
  * @param die - Dice input (https://dice-roller.github.io/documentation/guide/#features)
  * @param title - (optional) - Title to attach to roll result
- * @param message - (optional) - Discord message that defined command params
  */
-export default function roll(die: string, title?: string, message?: APIMessage) {
+export default function roll(die: string, title?: string) {
   // Instantiate a dndHelper
   const dndHelper = new DnDHelper();
 
@@ -61,8 +59,6 @@ export default function roll(die: string, title?: string, message?: APIMessage) 
       return dndHelper.randomInt(-2147483648, 2147483647);
     },
   };
-
-  const isDM = message ? message.thread?.type === ChannelType.DM || message.thread?.type === ChannelType.GroupDM : false;
 
   // Check if die was provided and take it, else set to default
   const dieNotation = die ? die : '1d20';
@@ -151,7 +147,7 @@ export default function roll(die: string, title?: string, message?: APIMessage) 
   }
 
   // Define final reply
-  let finalReply = isDM ? `\n` : ` :game_die:\n`;
+  let finalReply = ` :game_die:\n`;
 
   // Add actual result to roll
   finalReply += `**${resultTitle}:** ${escapeMarkdown(dieNotation)} `;

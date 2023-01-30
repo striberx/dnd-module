@@ -1,4 +1,3 @@
-import { APIMessage, ChannelType } from 'discord-api-types/v10';
 import { EditionsEnum } from '../helpers/enums';
 import DnDHelper from '../helpers/dndHelper';
 
@@ -8,12 +7,9 @@ import DnDHelper from '../helpers/dndHelper';
  * @param edition - (optional) - Edition to use, defaults to 5e
  * @param generateCount - (optional) - Amount of point buys to generate, defaults to 1
  * @param pointMax - (optional) - Max points to spend, defaults to 27
- * @param message - (optional) - Discord message that defined command params
  */
-export default function randpointbuy(edition?: EditionsEnum, generateCount?: number, pointMax?: number, message?: APIMessage) {
+export default function randpointbuy(edition?: EditionsEnum, generateCount?: number, pointMax?: number) {
   const dndHelper = new DnDHelper();
-
-  const isDM = message ? message.thread?.type === ChannelType.DM || message.thread?.type === ChannelType.GroupDM : false;
 
   // Max points to spend or default to 27 (5e default) if none is set
   let maxPoints = pointMax ?? 27;
@@ -40,7 +36,7 @@ export default function randpointbuy(edition?: EditionsEnum, generateCount?: num
   }
 
   // Define final reply
-  let finalReply = isDM ? `` : `\n`;
+  let finalReply = `\n`;
   finalReply += maxGenerates > 1 ? `Generating ${maxGenerates} Point Buy arrays...` : ``;
 
   // Create final response based on how many arrays we generated
