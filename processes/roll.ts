@@ -42,10 +42,10 @@ function styleRoll(unstyledRoll: string, max: string, hasSpace: boolean, compari
 /**
  * Rolls dice
  *
- * @param die - Dice input (https://dice-roller.github.io/documentation/guide/#features)
+ * @param die - (optional) - Dice input (https://dice-roller.github.io/documentation/guide/#features)
  * @param title - (optional) - Title to attach to roll result
  */
-export default function roll(die: string, title?: string) {
+export default function roll(die?: string, title?: string) {
   // Instantiate a dndHelper
   const dndHelper = new DnDHelper();
 
