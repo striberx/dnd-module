@@ -1,5 +1,4 @@
 import { DiceRoller, NumberGenerator, DiceRoll } from '@dice-roller/rpg-dice-roller';
-import { NotationError } from '@dice-roller/rpg-dice-roller/types/exceptions';
 import { escapeMarkdown } from '../helpers/escapers';
 import DnDHelper from '../helpers/dndHelper';
 
@@ -137,10 +136,11 @@ export default function roll(die?: string, title?: string) {
 
   try {
     dieResult = roller.roll(dieNotation) as DiceRoll;
-  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
     // Reply with expected for NotationError
-    if (typeof e === typeof NotationError) {
-      return `Invalid notation; Expected "(" or [1-9] but '${(e as NotationError).notation}' found`;
+    if (e.message.includes('notation')) {
+      return `Invalid notation; Expected "(" or [1-9] but '${e.notation}' found`;
     }
 
     return `${e}`;
