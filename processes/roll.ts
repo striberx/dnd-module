@@ -1,6 +1,7 @@
 import { DiceRoller, NumberGenerator, DiceRoll } from '@dice-roller/rpg-dice-roller';
 import { escapeMarkdown } from '../helpers/escapers';
 import DnDHelper from '../helpers/dndHelper';
+import reverse from '../helpers/reverse';
 
 function styleRoll(unstyledRoll: string, max: string, hasSpace: boolean, comparison: boolean) {
   // We do not want to highlight max/min on comparisons
@@ -28,7 +29,7 @@ function styleRoll(unstyledRoll: string, max: string, hasSpace: boolean, compari
 
   for (const [item, replacement] of Object.entries(replacements)) {
     if (styledRoll.search(item === 'max' ? max : new RegExp(item)) !== -1) {
-      styledRoll = replacement + (hasSpace ? ' ' : '') + unstyledRoll + replacement.reverse();
+      styledRoll = replacement + (hasSpace ? ' ' : '') + unstyledRoll + reverse(replacement);
       adjusted = true;
       break;
     }
