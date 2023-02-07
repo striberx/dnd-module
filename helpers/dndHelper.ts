@@ -1,4 +1,5 @@
 import random from 'random';
+import seedrandom from 'seedrandom';
 import { EditionsEnum } from './enums';
 
 export default class DnDHelper {
@@ -62,9 +63,8 @@ export default class DnDHelper {
   };
 
   public constructor() {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const seedrandom = require('seedrandom');
-    random.use(seedrandom());
+    const seed = seedrandom();
+    random.use(seed());
   }
 
   /**
