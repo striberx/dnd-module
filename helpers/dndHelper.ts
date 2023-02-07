@@ -63,8 +63,8 @@ export default class DnDHelper {
   };
 
   public constructor() {
-    const seed = seedrandom();
-    random.use(seed());
+    const clone = random.clone(seedrandom());
+    random.use(clone.rng);
   }
 
   /**
